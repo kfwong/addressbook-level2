@@ -9,40 +9,17 @@ import seedu.addressbook.data.exception.IllegalValueException;
  * Represents a Person's address in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
-public class Address {
-
-    public static final String EXAMPLE = "123, Clementi Ave 3, #12-34, 231534";
-    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses must be in format: BLOCK, STREET, UNIT, POSTAL_CODE";
-    public static final String ADDRESS_VALIDATION_REGEX = "(\\w+)(, ([^,]+)?(, ([^,]+)?(, (\\d+))?)?)?";
-
-    private boolean isPrivate;
-    
+public class Address extends Contact{    
 
     private final Block block;
     private final Street street;
     private final Unit unit;
     private final PostalCode postalCode;
-    
-    
-    public Block getBlock() {
-		return block;
-	}
-
-	public Street getStreet() {
-		return street;
-	}
-
-	public Unit getUnit() {
-		return unit;
-	}
-
-	public PostalCode getPostalCode() {
-		return postalCode;
-	}
 	
 	public Address(String address, boolean isPrivate)throws IllegalValueException{
+		super("123, Clementi Ave 3, #12-34, 231534", "Person addresses must be in format: BLOCK, STREET, UNIT, POSTAL_CODE", "(\\w+)(, ([^,]+)?(, ([^,]+)?(, (\\d+))?)?)?");
 		
-		Pattern r = Pattern.compile(ADDRESS_VALIDATION_REGEX);
+		Pattern r = Pattern.compile(VALIDATION_REGEX);
 		Matcher m = r.matcher(address);
 		
 		
@@ -56,12 +33,13 @@ public class Address {
 			this.isPrivate = isPrivate;
 			
 		}else{
-			throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
+			throw new IllegalValueException(MESSAGE_CONSTRAINTS);
 		}
 		
 	}
 	
 	public Address(Block block, Street street, Unit unit, PostalCode postalCode){
+		super("123, Clementi Ave 3, #12-34, 231534", "Person addresses must be in format: BLOCK, STREET, UNIT, POSTAL_CODE", "(\\w+)(, ([^,]+)?(, ([^,]+)?(, (\\d+))?)?)?");
 		this.block = block;
 		this.street = street;
 		this.unit = unit;
@@ -77,16 +55,9 @@ public class Address {
     	this(block, street, unit, postalCode);
         this.isPrivate = isPrivate;
         
-        if (!isValidAddress(this.toString())) {
-            throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
+        if (!isValid(this.toString())) {
+            throw new IllegalValueException(MESSAGE_CONSTRAINTS);
         }
-    }
-
-    /**
-     * Returns true if a given string is a valid person email.
-     */
-    public static boolean isValidAddress(String test) {
-        return test.matches(ADDRESS_VALIDATION_REGEX);
     }
 
     @Override
@@ -112,7 +83,19 @@ public class Address {
         return this.toString().hashCode();
     }
 
-    public boolean isPrivate() {
-        return isPrivate;
-    }
+    public Block getBlock() {
+		return block;
+	}
+
+	public Street getStreet() {
+		return street;
+	}
+
+	public Unit getUnit() {
+		return unit;
+	}
+
+	public PostalCode getPostalCode() {
+		return postalCode;
+	}
 }
