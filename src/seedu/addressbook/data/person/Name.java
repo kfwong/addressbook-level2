@@ -37,6 +37,10 @@ public class Name {
         return test.matches(NAME_VALIDATION_REGEX);
     }
 
+    public boolean isSimilar(Name other){
+        return this.fullName.equals(other.fullName);
+    }
+    
     /**
      * Retrieves a listing of every word in the name, in order.
      */
