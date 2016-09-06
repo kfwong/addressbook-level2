@@ -13,4 +13,10 @@ public class NameTest {
     public void setup() throws IllegalValueException{
         name = new Name("John Smith");
     }
+    
+    @Test(expected=NullPointerException.class)
+    public void isSimilar_nameIsNull(){
+        boolean result = name.isSimilar(null);
+        
+    }
 }
