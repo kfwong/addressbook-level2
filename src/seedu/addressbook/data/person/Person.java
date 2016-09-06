@@ -14,6 +14,10 @@ public class Person implements ReadOnlyPerson {
     private Phone phone;
     private Email email;
     private Address address;
+    
+    private int sequenceNumber;
+    
+    private static int nextSequenceNumber = 1;
 
     private final UniqueTagList tags;
     /**
@@ -57,6 +61,19 @@ public class Person implements ReadOnlyPerson {
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
+    }
+    
+    public int getSequenceNumber(){
+        return sequenceNumber;
+    }
+    
+    public void assignSequenceNumber(){
+        sequenceNumber = nextSequenceNumber;
+        Person.nextSequenceNumber++;
+    }
+    
+    public static int getNextSequenceNumber(){
+        return nextSequenceNumber;
     }
 
     /**
