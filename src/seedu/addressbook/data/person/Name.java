@@ -40,7 +40,9 @@ public class Name {
     }
 
     public boolean isSimilar(Name other){
-        Pattern pattern = Pattern.compile("\\b(John|Smith|K)\\b", Pattern.CASE_INSENSITIVE);
+        String wordList = this.fullName.replaceAll("[\\p{P}\\s]+", "|");
+        
+        Pattern pattern = Pattern.compile("\\b("+wordList+")\\b", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(other.fullName);
         
         return matcher.find();
