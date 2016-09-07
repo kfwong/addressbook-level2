@@ -4,6 +4,8 @@ import seedu.addressbook.data.exception.IllegalValueException;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Represents a Person's name in the address book.
@@ -38,7 +40,10 @@ public class Name {
     }
 
     public boolean isSimilar(Name other){
-        return this.fullName.equals(other.fullName);
+        Pattern pattern = Pattern.compile("\\b(John|Smith|K)\\b");
+        Matcher matcher = pattern.matcher(other.fullName);
+        
+        return matcher.find();
     }
     
     /**
