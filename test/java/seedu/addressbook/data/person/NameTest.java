@@ -9,12 +9,17 @@ import static org.junit.Assert.*;
 public class NameTest {
     private Name name;
     
-    private Name name1; // John Smith
+    private Name exactMatch; // John K Smith
+    private Name onlyFirstName; // John
+    private Name onlyLastName; // Smith
+    private Name missingMiddleName; // John Smith
 
     @Before
     public void setup() throws IllegalValueException{
-        name = new Name("John Smith");
-        name1 = new Name("John Smith");
+        name = new Name("John K Smith");
+        exactMatch = new Name("John K Smith");
+        onlyFirstName = new Name("John");
+        onlyLastName = new Name("Smith");
     }
     
     @Test(expected=NullPointerException.class)
@@ -25,8 +30,29 @@ public class NameTest {
     
     @Test
     public void isSimilar_exactMatch(){
-        boolean result = name.isSimilar(name1);
+        boolean result = name.isSimilar(exactMatch);
         
         assertTrue("isSimilar: Exact match", result);
+    }
+    
+    @Test
+    public void isSimilar_onlyFirstName(){
+        boolean result = name.isSimilar(onlyFirstName);
+        
+        assertTrue("isSimilar: Only first name", result);
+    }
+    
+    @Test
+    public void isSimilar_onlyLastName(){
+        boolean result = name.isSimilar(onlyLastName);
+        
+        assertTrue("isSimilar: Only last name", result);
+    }
+    
+    @Test
+    public void isSimilar_missingMiddleName(){
+        boolean result = name.isSimilar(missingMiddleName);
+        
+        assertTrue("isSimilar: Missing middle name", result);
     }
 }
