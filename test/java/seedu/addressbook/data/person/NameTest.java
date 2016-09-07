@@ -13,6 +13,7 @@ public class NameTest {
     private Name onlyFirstName; // John
     private Name onlyLastName; // Smith
     private Name missingMiddleName; // John Smith
+    private Name caseSensitivity; //JoHN SmiTH
 
     @Before
     public void setup() throws IllegalValueException{
@@ -20,6 +21,8 @@ public class NameTest {
         exactMatch = new Name("John K Smith");
         onlyFirstName = new Name("John");
         onlyLastName = new Name("Smith");
+        missingMiddleName = new Name("John Smith");
+        caseSensitivity = new Name("JoHN SmiTH");
     }
     
     @Test(expected=NullPointerException.class)
@@ -54,5 +57,12 @@ public class NameTest {
         boolean result = name.isSimilar(missingMiddleName);
         
         assertTrue("isSimilar: Missing middle name", result);
+    }
+    
+    @Test
+    public void isSimilar_caseSensitivity(){
+        boolean result = name.isSimilar(caseSensitivity);
+        
+        assertTrue("isSimilar: Case sensitivity", result);
     }
 }
